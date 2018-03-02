@@ -7,6 +7,12 @@
 
 #include <Windows.h>
 
+// Function for hooking the vtable of a class. (Win32 ABI Only)
+// usage:
+// auto real_func = hook_vtable<void(Class& self)>(reference_to_class, vtable_index, hook_func);
+//
+// All calls to the function at `vtable_index` would be redirected to `hook_func`.
+// The variable `real_func` would contain the address of the real function.
 template<typename Function, typename Class>
 auto hook_vtable(Class& object, const std::size_t index, Function* function) noexcept
    -> Function*
